@@ -34,9 +34,14 @@ def main():
             u.update(dt)
         for d in drawable:
             d.draw(screen)
-            if type(d).__name__ == "Asteroid" and player.colliding(d):
+        for a in asteroids:
+            if player.colliding(a):
                 print("Game over!")
                 sys.exit(1)
+            for s in shots:
+                if a.colliding(s):
+                    a.kill()
+                    s.kill()
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
